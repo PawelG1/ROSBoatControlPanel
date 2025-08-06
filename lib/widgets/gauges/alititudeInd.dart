@@ -4,47 +4,28 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
 
-class AltitudeInd extends ConsumerStatefulWidget {
+class AltitudeInd extends ConsumerWidget{
   final StateProvider<double> pitchProvider;
   final StateProvider<double> rollProvider;
   final double radius;
 
-  const AltitudeInd({
-    super.key,
-    required this.pitchProvider,
-    required this.rollProvider,
-    this.radius = 200,
-  });
+  const AltitudeInd({super.key, required this.pitchProvider, required this.rollProvider, this.radius = 200});
 
   @override
-  ConsumerState<AltitudeInd> createState() => _AltitudeIndState();
-}
-
-class _AltitudeIndState extends ConsumerState<AltitudeInd> {
-  double _displayedPitch = 0.0;
-  double _displayedRoll = 0.0;
-
-  @override
-  Widget build(BuildContext context) {
-    final currentPitch = ref.watch(widget.pitchProvider);
-    final currentRoll = ref.watch(widget.rollProvider);
-
-    // Smooth update tylko przy większych zmianach
-    if ((currentPitch - _displayedPitch).abs() > 0.2) {
-      _displayedPitch = currentPitch;
-    }
-    if ((currentRoll - _displayedRoll).abs() > 0.2) {
-      _displayedRoll = currentRoll;
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pitch = ref.watch(pitchProvider);
+    final roll = ref.watch(rollProvider);
 
     return CustomPaint(
-      size: Size(widget.radius, widget.radius),
-      painter: AltitudePainter(pitch: _displayedPitch, roll: _displayedRoll),
+      size: Size(radius, radius),
+      painter: AlititudeIndPainter()
+      ..pitch = pitch
+      ..roll = roll
     );
   }
 }
 
-class AltitudePainter extends CustomPainter {
+class AlititudeIndPainter extends CustomPainter {
 
   double _roll = 0;
   double _pitch = 0;
