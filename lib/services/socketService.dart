@@ -61,7 +61,6 @@ class SocketService extends StateNotifier<bool> {
                   //ref.read(speedProvider.notifier).state = speed.toDouble();
                 }
                 
-                // Możesz dodać więcej parametrów jak yaw, temperature, itp.
                 
               } catch (e) {
                 debugPrint('JSON decode error: $e');
