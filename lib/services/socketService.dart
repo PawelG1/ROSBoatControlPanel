@@ -22,7 +22,7 @@ class SocketService extends StateNotifier<bool> {
 
   Future<void> connect(String ip) async {
     if (_isConnecting || _socket != null) {
-      return; // Prevent multiple connection attempts
+      return;
     }
 
     _isConnecting = true;
@@ -32,8 +32,7 @@ class SocketService extends StateNotifier<bool> {
       _socket = await Socket.connect(ip, 8765);
       state = true;
       _isConnecting = false;
-      ref.read(connectionStatusProvider.notifier).state = 'Connected';
-      debugPrint('Connected to ROS server');
+      ref.read(connectionStatusProvider.notifier).state = 'Connected'; // Upewnij się że to jest "Connected"
 
       _socket!.listen((data) {
         final message = String.fromCharCodes(data).trim();
@@ -59,7 +58,7 @@ class SocketService extends StateNotifier<bool> {
                 // Aktualizuj speed
                 final speed = jsonData['speed'] as num?;
                 if (speed != null) {
-                  ref.read(speedProvider.notifier).state = speed.toDouble();
+                  //ref.read(speedProvider.notifier).state = speed.toDouble();
                 }
                 
                 // Możesz dodać więcej parametrów jak yaw, temperature, itp.
@@ -90,7 +89,7 @@ class SocketService extends StateNotifier<bool> {
     _socket = null;
     _isConnecting = false;
     state = false;
-    ref.read(connectionStatusProvider.notifier).state = 'Disconnected';
+    ref.read(connectionStatusProvider.notifier).state = 'Disconnected'; // I to "Disconnected"
   }
 
   void disconnect() {

@@ -123,7 +123,7 @@ class Dashboard extends ConsumerWidget{
                                 Text(
                                   ref.watch(connectionStatusProvider),
                                   style: TextStyle(
-                                    color: ref.watch(connectionStatusProvider) == "connected" ? Colors.green : Colors.red,
+                                    color: ref.watch(connectionStatusProvider) == "Connected" ? Colors.green : Colors.red,
                                     fontSize: 16,
                                   ),
                                 ),
