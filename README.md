@@ -4,6 +4,8 @@ Real-time dashboard for monitoring and controlling autonomous boats via ROS comm
 
 ## Overview
 
+![Dashboard image](assets/dashboard.png)
+
 Flutter-based control panel application for ROS operated boats/submarines. Provides real-time visualization of boat telemetry data including attitude, speed, compass heading, battery status, rudder angle, and navigation parameters through TCP socket communication with ROS systems.
 
 ## Features
