@@ -120,10 +120,10 @@ class SpeedGaugePainter extends CustomPainter {
     final speedText = TextPainter(
       text: TextSpan(
         text: "${speed.toStringAsFixed(2)} kts",
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16, 
           fontWeight: FontWeight.w200, 
-          color: Colors.yellowAccent, 
+          color: Colors.white.withValues(alpha: 0.8), 
           letterSpacing: 1.8,
           fontFeatures: [FontFeature.tabularFigures()]
         ),

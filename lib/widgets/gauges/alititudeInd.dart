@@ -41,7 +41,7 @@ class AlititudeIndPainter extends CustomPainter {
 
     drawBg(canvas, size, centerOffset, radius, _roll, _pitch);
     drawAngleInd(canvas, size, centerOffset, radius, _roll, _pitch);
-    drawPlaneInd(canvas, size, centerOffset);
+    drawPlaneInd(canvas, radius, centerOffset);
   }
 
   @override
@@ -94,7 +94,7 @@ void drawBg(Canvas canvas,Size size, Offset center, radius,double roll, double p
 
 }
 
-void drawAngleInd(Canvas canvas,Size size, Offset center, radius,double roll, double pitch){
+void drawAngleInd(Canvas canvas,Size size, Offset center,double radius,double roll, double pitch){
   roll = roll * pi/180.0;
   canvas.save();
   canvas.translate(center.dx, center.dy);
@@ -136,9 +136,9 @@ void drawAngleInd(Canvas canvas,Size size, Offset center, radius,double roll, do
     canvas.drawLine(Offset(-maxHorizonWidth, 0), Offset(maxHorizonWidth, 0), paint);
   }
   
-  double pitchLineLength = radius * 0.1; //scalable pitch line length
+  double pitchLineLength = radius * 0.09; //scalable pitch line length
   double pitchSpacing = radius * 0.2; //scalable pitch spacing
-  for(int i=1; i<=2; i++){ 
+  for(int i=1; i<=3; i++){ 
     canvas.drawLine(Offset(-pitchLineLength, -(pitchSpacing*i)), Offset(pitchLineLength, -(pitchSpacing*i)), paint);
     canvas.drawLine(Offset(-pitchLineLength, (pitchSpacing*i)), Offset(pitchLineLength, (pitchSpacing*i)), paint);
   }
@@ -150,33 +150,32 @@ double degToRad(double angle){
   return angle * pi / 180;
 }
 
-void drawPlaneInd(Canvas canvas,Size size, Offset center){
+void drawPlaneInd(Canvas canvas,double radius, Offset center){
     var paint = Paint()
     ..isAntiAlias = true
-    ..color = Colors.yellow
-    ..strokeWidth = size.width * 0.013 //scalable stroke width
+    ..color = Colors.amberAccent.shade200
+    ..strokeWidth = radius * 0.04 //scalable stroke width
     ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round
-    ..strokeJoin = StrokeJoin.round
     ..filterQuality = FilterQuality.high;
 
     //left wing - scalable
     final leftPath = Path();
-    leftPath.moveTo(center.dx - (size.width * 0.07), center.dy + (size.height * 0.08));
-    leftPath.lineTo(center.dx - (size.width * 0.07), center.dy);
-    leftPath.lineTo(center.dx - (size.width * 0.4), center.dy);
+    leftPath.moveTo(center.dx - (radius * 0.20), center.dy + (radius * 0.16));
+    leftPath.lineTo(center.dx - (radius * 0.20), center.dy);
+    leftPath.lineTo(center.dx - (radius * 0.82), center.dy);
     canvas.drawPath(leftPath, paint);
 
     //right wing - scalable
     final rightPath = Path();
-    rightPath.moveTo(center.dx + (size.width * 0.07), center.dy + (size.height * 0.08));
-    rightPath.lineTo(center.dx + (size.width * 0.07), center.dy);
-    rightPath.lineTo(center.dx + (size.width * 0.4), center.dy);
+    rightPath.moveTo(center.dx + (radius * 0.20), center.dy + (radius * 0.16));
+    rightPath.lineTo(center.dx + (radius * 0.20), center.dy);
+    rightPath.lineTo(center.dx + (radius * 0.82), center.dy);
     canvas.drawPath(rightPath, paint);
 
     //center dot - scalable
     paint.style = PaintingStyle.fill;
-    double centerDotSize = size.width * 0.013;
+    double centerDotSize = radius * 0.06;
     canvas.drawRect(Rect.fromCenter(center: center, width: centerDotSize, height: centerDotSize), paint);
 
 }
