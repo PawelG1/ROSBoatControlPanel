@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Azimuthind extends ConsumerWidget{
@@ -57,6 +56,46 @@ class AzimuthPainter extends CustomPainter{
 
     
     canvas.drawPath(shipPath, paint);
+
+    //draw the azimuth angles marks
+    paint
+      ..color = Colors.white.withValues(alpha: 0.7)
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke; 
+    for (int i = 0; i < 360; i += 15) {
+      final angle = (i * pi) / 180;
+      final isMainTick = i % 90 == 0;
+      final tickLength = isMainTick ? 15.0 : 8.0;
+      final strokeWidth = isMainTick ? 3.0 : 2.0;
+      paint.strokeWidth = strokeWidth;
+      final startRadius = radius;
+      final endRadius = startRadius - tickLength;
+      final startX = center.dx + cos(angle - pi/2) * startRadius;
+      final startY = center.dy + sin(angle - pi/2) * startRadius;
+      final endX = center.dx + cos(angle - pi/2) * endRadius;
+      final endY = center.dy + sin(angle - pi/2) * endRadius;
+      canvas.drawLine(Offset(startX, startY), Offset(endX, endY),
+        paint
+      );
+    }
+
+    //draw the north arrow line
+    paint
+      ..color = Colors.redAccent.shade200.withValues(alpha: 0.6)
+      ..strokeWidth = 4
+      ..style = PaintingStyle.stroke; 
+    final northAngle = (0 * pi) / 180; // North is at 0 degrees
+    final northStartX = center.dx + cos(northAngle - pi/2) * radius * 0.5;
+    final northStartY = center.dy + sin(northAngle - pi/2) * radius * 0.5;
+    final northEndX = center.dx + cos(northAngle - pi/2) * radius;
+    final northEndY = center.dy + sin(northAngle - pi/2) * radius;
+    canvas.drawLine(
+      Offset(northStartX, northStartY),
+      Offset(northEndX, northEndY),
+      paint
+    );
+    
+    
 
   }
 

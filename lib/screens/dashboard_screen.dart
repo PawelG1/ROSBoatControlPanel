@@ -9,6 +9,7 @@ import 'package:ros_visualizer/widgets/gauges/azimuthInd.dart';
 import 'package:ros_visualizer/widgets/gauges/speedGauge.dart';
 import 'package:ros_visualizer/widgets/menuSideBar.dart';
 import 'package:ros_visualizer/widgets/dashboard_card.dart';
+import 'package:ros_visualizer/widgets/rudderAngleIndicator.dart';
 
 class Dashboard extends ConsumerWidget{
   const Dashboard({super.key});
@@ -95,9 +96,14 @@ class Dashboard extends ConsumerWidget{
                 ),
                 Row(
                   children: [
+
+                    //Battery indicator
                     DashboardCard(title: "Battery", flex: 1, child: BatteryInd(batteryVoltageStateProvider: batteryVoltageProvider),),
 
-                    // Connection status and control settings
+                    //Rudder angle indicator
+                    DashboardCard(title: "Rudder Angle", flex: 1, child: Rudderangleindicator(rudderAngleProvider: rudderAngleProvider),),
+
+                    //Connection status and control settings
                     DashboardCard(title: "", 
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

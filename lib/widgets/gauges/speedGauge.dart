@@ -42,7 +42,7 @@ class SpeedGaugePainter extends CustomPainter {
 
     var paint = Paint()
       ..color = Colors.black87
-      ..strokeWidth = 6
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round
