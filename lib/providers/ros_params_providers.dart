@@ -6,3 +6,6 @@ final pitchProvider = StateProvider<double>((ref) => 0.0);
 final rollProvider = StateProvider<double>((ref) => 0.0);
 final batteryVoltageProvider = StateProvider<double>((ref) => 11.6); 
 final rudderAngleProvider = StateProvider<double>((ref) => 0.0);
+final courseOverGroundProvider = StateProvider<double>((ref)=>0.0);
+final positionProvider = StateProvider<String>((ref)=>'N0.00 E0.00');
+final depthProvider = StateProvider<double>((ref)=>0.0);

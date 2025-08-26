@@ -114,54 +114,32 @@ class Dashboard extends ConsumerWidget{
                           children: [
                         
                             // Connection status
-                            Column(
-                              children: [
-                                Text(
-                                  'Connection Status: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Text(
-                                  ref.watch(connectionStatusProvider),
-                                  style: TextStyle(
-                                    color: ref.watch(connectionStatusProvider) == "Connected" ? Colors.green : Colors.red,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
+                            TextInfoWidget(
+                              title: 'Connection Status',
+                              data: ref.watch(connectionStatusProvider),
+                              dataTextStyle: TextStyle(color: ref.watch(connectionStatusProvider) == "Connected" ? Colors.green : Colors.red,),
                             ),
-                        
-                            // Connection status
-                            Column(
-                              children: [
-                                Text(
-                                  'Mode: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Text(
-                                  "manual steering",
-                                  style: TextStyle(
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                        
+                           
+
+                            
                             // External Joystick switch
-                            Column(
-                              children: [
-                                Text(
-                                  'External Joystick: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Switch(
-                                  activeColor: Colors.lightBlue,
-                                  value: ref.watch(joystickProvider),
-                                  onChanged: (val) {
-                                    ref.read(joystickProvider.notifier).state = val;
-                                  },
-                                )
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'External Joystick: ',
+                                    maxLines: 1,
+                                    style: TextStyle(color: Colors.blueAccent, overflow: TextOverflow.ellipsis),
+                                  ),
+                                  Switch(
+                                    activeThumbColor: Colors.lightBlue,
+                                    value: ref.watch(joystickProvider),
+                                    onChanged: (val) {
+                                      ref.read(joystickProvider.notifier).state = val;
+                                    },
+                                  )
+                                ],
+                              ),
                             ),
                         
                           ],
@@ -172,45 +150,13 @@ class Dashboard extends ConsumerWidget{
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             // Course Over Ground
-                            Column(
-                              children: [
-                                Text(
-                                  'COG: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Text(
-                                  "0.00 deg"
-                                )
-                              ]
-                            ),
-
+                            TextInfoWidget(title: 'COG', data: ref.watch(courseOverGroundProvider).toString()),
+                           
                             //Position
-                            Column(
-                              children: [
-                                Text(
-                                  'Position: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Text(
-                                  "N 0.00 E 0.00"
-                                )
-                              ]
-                            ),
+                            TextInfoWidget(title: 'Position', data: ref.watch(positionProvider)),
 
                             //depth
-                            Column(
-                              children: [
-                                Text(
-                                  'Depth: ',
-                                  style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                                ),
-                                Text(
-                                  "0.00 m"
-                                )
-                              ]
-                            ),
-
-
+                            TextInfoWidget(title: 'Depth', data: ref.watch(depthProvider).toString()),
                         ]
                       )
 
@@ -224,6 +170,41 @@ class Dashboard extends ConsumerWidget{
               ),    
             ),
           
+        ],
+      ),
+    );
+  }
+}
+
+class TextInfoWidget extends ConsumerWidget{
+  const TextInfoWidget({
+    super.key,
+    required this.title,
+    required this.data,
+    this.dataTextStyle = const TextStyle(color: Colors.white),
+    });
+
+  final String title;
+  final String data;
+  final TextStyle dataTextStyle;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            data,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: dataTextStyle
+          ),
         ],
       ),
     );
