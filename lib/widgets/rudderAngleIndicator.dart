@@ -32,17 +32,11 @@ class RudderAnglePainter extends CustomPainter {
 
     var paint = Paint();
 
-    // Outer black circle
-    paint
-      ..color = Colors.black87
-      ..strokeWidth = radius * 0.04 //scalable stroke width
-      ..style = PaintingStyle.stroke
-      ..isAntiAlias = true;
-    canvas.drawCircle(center, radius, paint);
 
 
     // Inner gray background
     paint
+      ..isAntiAlias = true
       ..color = Colors.grey.shade900
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, radius, paint);
@@ -127,6 +121,15 @@ class RudderAnglePainter extends CustomPainter {
     );
     valuePainter.layout();
     valuePainter.paint(canvas, Offset(center.dx - valuePainter.width / 2, center.dy + radius * 0.45));
+
+    //outer perimeter
+    paint
+      ..color = Colors.black87
+      ..strokeWidth = radius * 0.03
+      ..style = PaintingStyle.stroke
+      ..isAntiAlias = true;
+    canvas.drawCircle(center, radius, paint);
+  
   }
 
   @override

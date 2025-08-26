@@ -19,7 +19,7 @@ class DashboardCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final color = accentColor ?? Colors.lightBlue;
+    final color = accentColor ?? Colors.blue;
     
     return Expanded(
       flex: flex!,
@@ -71,9 +71,9 @@ class DashboardCard extends ConsumerWidget {
             children: [
               Text(
                 title.toUpperCase(),
+                maxLines: 1,
                 style: TextStyle(
                   color: color,
-                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
                 ),

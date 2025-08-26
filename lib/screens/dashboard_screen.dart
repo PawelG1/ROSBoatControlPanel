@@ -45,7 +45,7 @@ class Dashboard extends ConsumerWidget{
                     DashboardCard(
                       title: 'Attitude',
                       flex: altitudeFlex,
-                      accentColor: Colors.cyan,
+                      accentColor: Colors.blue[500],
                       child: AltitudeInd(
                         pitchProvider: pitchProvider, 
                         rollProvider: rollProvider, 
@@ -56,7 +56,7 @@ class Dashboard extends ConsumerWidget{
                     DashboardCard(
                       title: 'Speed',
                       flex: speedFlex,
-                      accentColor: Colors.lightBlue,
+                      accentColor: Colors.blue[500],
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -89,7 +89,7 @@ class Dashboard extends ConsumerWidget{
                     DashboardCard(
                       title: 'Compass',
                       flex: azimuthFlex,
-                      accentColor: Colors.blueAccent,
+                      accentColor: Colors.blue[500],
                       child: Azimuthind(),
                     ),
                   ],

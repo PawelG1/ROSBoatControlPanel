@@ -42,6 +42,16 @@ class AlititudeIndPainter extends CustomPainter {
     drawBg(canvas, size, centerOffset, radius, _roll, _pitch);
     drawAngleInd(canvas, size, centerOffset, radius, _roll, _pitch);
     drawPlaneInd(canvas, radius, centerOffset);
+
+    Paint paint = Paint()
+      ..color = Colors.black87
+      ..strokeWidth = radius * 0.03
+      ..style = PaintingStyle.stroke
+      ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..filterQuality = FilterQuality.high;
+    canvas.drawCircle(centerOffset, radius, paint);
   }
 
   @override
@@ -54,21 +64,17 @@ class AlititudeIndPainter extends CustomPainter {
 void drawBg(Canvas canvas,Size size, Offset center, radius,double roll, double pitch){
 
     var paint = Paint()
-      ..color = Colors.black87
-      ..strokeWidth = radius * 0.04 //scalable stroke width
-      ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..filterQuality = FilterQuality.high;
-    canvas.drawCircle(center, radius, paint);
 
     //angles to radians
     roll = roll * pi/180;
 
     paint
       ..color = Colors.lightBlue
-      ..strokeWidth = radius * 0.027 //scalable stroke width
+      ..strokeWidth = radius * 0.027 
       ..style = PaintingStyle.fill;
 
   //draw blue circle for sky representation 
@@ -89,9 +95,8 @@ void drawBg(Canvas canvas,Size size, Offset center, radius,double roll, double p
     
     //full circle, but only ground portion will be visible due to clipping
     canvas.drawCircle(Offset(0, 0), radius, paint);
-
     canvas.restore();
-
+  
 }
 
 void drawAngleInd(Canvas canvas,Size size, Offset center,double radius,double roll, double pitch){

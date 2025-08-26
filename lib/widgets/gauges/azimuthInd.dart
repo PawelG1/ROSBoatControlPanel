@@ -23,15 +23,10 @@ class AzimuthPainter extends CustomPainter{
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = min(center.dx, center.dy);
+    final shipIconSize = radius*0.4;
 
     final paint = Paint()
-      ..color = Colors.black
       ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawCircle(center, radius, paint); //perimeter of an indicator
-
-    paint
       ..color = Colors.grey.shade900
       ..style = PaintingStyle.fill;
 
@@ -41,32 +36,43 @@ class AzimuthPainter extends CustomPainter{
     paint
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
+      ..strokeWidth = radius*0.04;
 
 
     final shipPath = Path();
-    //start from sharp bow (front)
-    shipPath.moveTo(center.dx, center.dy - 40);
-    shipPath.quadraticBezierTo(center.dx + 15, center.dy - 30, center.dx + 18, center.dy - 10);
-    shipPath.lineTo(center.dx + 18, center.dy + 40);
 
-    shipPath.lineTo(center.dx-18, center.dy + 40);
-    shipPath.lineTo(center.dx - 18, center.dy -10);
-    shipPath.quadraticBezierTo(center.dx - 15, center.dy - 30, center.dx, center.dy - 41);
+    shipPath.moveTo(center.dx, center.dy - shipIconSize*1.1); 
+    shipPath.quadraticBezierTo(
+        center.dx + shipIconSize*0.375, 
+        center.dy - shipIconSize*0.85,  
+        center.dx + shipIconSize*0.45, 
+        center.dy - shipIconSize*0.25
+    );
+    shipPath.lineTo(center.dx + shipIconSize*0.45, center.dy + shipIconSize*1);
 
+    shipPath.lineTo(center.dx-shipIconSize*0.45, center.dy + shipIconSize*1);
+    shipPath.lineTo(center.dx - shipIconSize*0.45, center.dy -shipIconSize*0.25);
+    shipPath.quadraticBezierTo(
+        center.dx - shipIconSize*0.375, 
+        center.dy - shipIconSize*0.85, 
+        center.dx, 
+        center.dy - shipIconSize*1.1    
+    );
     
     canvas.drawPath(shipPath, paint);
+
+
 
     //draw the azimuth angles marks
     paint
       ..color = Colors.white.withValues(alpha: 0.7)
-      ..strokeWidth = 2
+      ..strokeWidth =  radius*0.08
       ..style = PaintingStyle.stroke; 
     for (int i = 0; i < 360; i += 15) {
       final angle = (i * pi) / 180;
       final isMainTick = i % 90 == 0;
-      final tickLength = isMainTick ? 15.0 : 8.0;
-      final strokeWidth = isMainTick ? 3.0 : 2.0;
+      final tickLength = isMainTick ? (radius*0.2) : (radius*0.12);
+      final strokeWidth = isMainTick ? (radius*0.03) : (radius*0.02);
       paint.strokeWidth = strokeWidth;
       final startRadius = radius;
       final endRadius = startRadius - tickLength;
@@ -82,7 +88,7 @@ class AzimuthPainter extends CustomPainter{
     //draw the north arrow line
     paint
       ..color = Colors.redAccent.shade200.withValues(alpha: 0.6)
-      ..strokeWidth = 4
+      ..strokeWidth =  radius*0.04
       ..style = PaintingStyle.stroke; 
     final northAngle = (0 * pi) / 180; // North is at 0 degrees
     final northStartX = center.dx + cos(northAngle - pi/2) * radius * 0.5;
@@ -94,7 +100,14 @@ class AzimuthPainter extends CustomPainter{
       Offset(northEndX, northEndY),
       paint
     );
-    
+
+    //outer perimeter
+    paint
+      ..color = Colors.black
+      ..strokeWidth = radius * 0.03
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(center, radius, paint); //perimeter of an indicator    
     
 
   }

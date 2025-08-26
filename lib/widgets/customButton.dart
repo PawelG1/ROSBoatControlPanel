@@ -17,11 +17,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity, //make buttons full width
+      width: double.infinity, 
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 12), //reduced vertical margin
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey[850],
+          backgroundColor: Colors.grey[250],
           foregroundColor: Colors.white,
           shadowColor: Colors.black54,
           shape: RoundedRectangleBorder(
@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text),
+        child: Text(text, maxLines:2,overflow:  TextOverflow.ellipsis,),
       ),
     );
   }

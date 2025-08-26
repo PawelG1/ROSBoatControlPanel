@@ -130,10 +130,10 @@ class SpeedGaugePainter extends CustomPainter {
     speedText.paint(
         canvas, Offset(center.dx - speedText.width / 2, center.dy + radius / 2));
   
-    //ramka
+    //outter perimeter
     paint
       ..color = Colors.black87
-      ..strokeWidth = 2
+      ..strokeWidth = radius * 0.03
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round
