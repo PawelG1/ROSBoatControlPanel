@@ -40,17 +40,14 @@ class SpeedGaugePainter extends CustomPainter {
     final angleStart = pi; //wskazowka lezy na lewo = pi
     final angleEnd = 2*pi; //wskazowka lezy prawo
 
+    
+
     var paint = Paint()
-      ..color = Colors.black87
       ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..filterQuality = FilterQuality.high;
-    canvas.drawCircle(center, radius, paint);
-
-    paint
+      ..filterQuality = FilterQuality.high
       ..color = Colors.grey.shade900
       ..style = PaintingStyle.fill
       ..strokeWidth = 0;
@@ -66,8 +63,8 @@ class SpeedGaugePainter extends CustomPainter {
         center.dy + (radius) * sin(angle)
       );
       final tickEnd = Offset(
-        center.dx + (radius - 20) * cos(angle),
-        center.dy + (radius - 20) * sin(angle)
+        center.dx + (radius*0.85) * cos(angle),
+        center.dy + (radius*0.85) * sin(angle)
       );
       final tickPaint = Paint()
         ..color = Colors.blueGrey.shade100
@@ -80,18 +77,18 @@ class SpeedGaugePainter extends CustomPainter {
       final textPainter = TextPainter(
         text: TextSpan(
           text: (maxSpeed * i / (tickCount - 1) ).toStringAsFixed(0),
-          style: const TextStyle(
-            fontSize: 12, 
-            color: Colors.blueGrey,
-            fontFeatures: [FontFeature.tabularFigures()]
+          style: TextStyle(
+            fontSize: radius*0.12,
+            color: Colors.white38,
+            fontFeatures: const [FontFeature.tabularFigures()]
           )
         ),  
         textDirection: TextDirection.ltr,
       )..layout();
 
       final offset = Offset(
-        center.dx + (radius - 35) * cos(angle) - textPainter.width / 2,
-        center.dy + (radius - 35) * sin(angle) - textPainter.height / 2
+        center.dx + (radius*0.7) * cos(angle) - textPainter.width / 2,
+        center.dy + (radius*0.7) * sin(angle) - textPainter.height / 2
       );
       textPainter.paint(canvas, offset);
     }
@@ -101,12 +98,12 @@ class SpeedGaugePainter extends CustomPainter {
       (angleEnd - angleStart) * (speed.clamp(0, maxSpeed) / maxSpeed);
     final needlePaint = Paint()
       ..color = Colors.red
-      ..strokeWidth = 3
+      ..strokeWidth = radius*0.02
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round;
     final needleEnd = Offset(
-      center.dx + (radius - 30) * cos(needleAngle),
-      center.dy + (radius - 30) * sin(needleAngle),
+      center.dx + (radius*0.8) * cos(needleAngle),
+      center.dy + (radius*0.8) * sin(needleAngle),
     );
     canvas.drawLine(center, needleEnd, needlePaint);
 
@@ -121,7 +118,7 @@ class SpeedGaugePainter extends CustomPainter {
       text: TextSpan(
         text: "${speed.toStringAsFixed(2)} kts",
         style: TextStyle(
-          fontSize: 16, 
+          fontSize: radius*0.16, 
           fontWeight: FontWeight.w200, 
           color: Colors.white.withValues(alpha: 0.8), 
           letterSpacing: 1.8,
@@ -133,6 +130,17 @@ class SpeedGaugePainter extends CustomPainter {
     speedText.paint(
         canvas, Offset(center.dx - speedText.width / 2, center.dy + radius / 2));
   
+    //ramka
+    paint
+      ..color = Colors.black87
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke
+      ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..filterQuality = FilterQuality.high;
+    canvas.drawCircle(center, radius, paint);
+
   }
   
   @override

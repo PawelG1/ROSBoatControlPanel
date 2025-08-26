@@ -114,7 +114,7 @@ class Dashboard extends ConsumerWidget{
                           children: [
                         
                             // Connection status
-                            TextInfoWidget(
+                            DataDisplay(
                               title: 'Connection Status',
                               data: ref.watch(connectionStatusProvider),
                               dataTextStyle: TextStyle(color: ref.watch(connectionStatusProvider) == "Connected" ? Colors.green : Colors.red,),
@@ -150,13 +150,13 @@ class Dashboard extends ConsumerWidget{
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             // Course Over Ground
-                            TextInfoWidget(title: 'COG', data: ref.watch(courseOverGroundProvider).toString()),
+                            DataDisplay(title: 'COG', data: ref.watch(courseOverGroundProvider).toString()),
                            
                             //Position
-                            TextInfoWidget(title: 'Position', data: ref.watch(positionProvider)),
+                            DataDisplay(title: 'Position', data: ref.watch(positionProvider)),
 
                             //depth
-                            TextInfoWidget(title: 'Depth', data: ref.watch(depthProvider).toString()),
+                            DataDisplay(title: 'Depth', data: ref.watch(depthProvider).toString()),
                         ]
                       )
 
@@ -176,8 +176,8 @@ class Dashboard extends ConsumerWidget{
   }
 }
 
-class TextInfoWidget extends ConsumerWidget{
-  const TextInfoWidget({
+class DataDisplay extends ConsumerWidget{
+  const DataDisplay({
     super.key,
     required this.title,
     required this.data,
