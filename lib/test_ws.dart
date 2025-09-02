@@ -7,6 +7,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,13 +19,15 @@ class MyApp extends StatelessWidget {
 }
 
 class SocketTestPage extends StatefulWidget {
+  const SocketTestPage({super.key});
+
   @override
   _SocketTestPageState createState() => _SocketTestPageState();
 }
 
 class _SocketTestPageState extends State<SocketTestPage> {
   Socket? _socket;
-  List<String> _messages = [];
+  final List<String> _messages = [];
   String _connectionStatus = 'Disconnected';
   double _lastPitch = 0.0;
   String _ipAddress = '192.168.0.123'; // Zmień na IP swojego RPi

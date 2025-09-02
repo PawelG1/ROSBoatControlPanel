@@ -29,6 +29,13 @@ class Menusidebar extends ConsumerWidget {
                 ),
 
                 CustomButton(
+                  text: "ROV's camera",
+                  onPressed: () {
+                    context.go('/camera');
+                  },
+                ),
+
+                CustomButton(
                   text: "Charts",
                   onPressed: () {},
                 ),
