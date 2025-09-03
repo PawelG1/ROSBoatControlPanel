@@ -18,32 +18,55 @@ class CameraScreen extends ConsumerWidget {
     return Row(
       children: [
         const Menusidebar(),
-        Stack(
-          children:[
-          DashboardCard(
-            height: double.infinity,
-            title: "",
-            child: SizedBox(
-              child: const VideoStreamWidget(),
+        Expanded(
+          child: Stack(
+            //fit: StackFit.expand,
+            children:[
+            DashboardCard(
+              height: double.infinity,
+              title: "addr: ${ref.watch(ipProvider.notifier).state}",
+              child: SizedBox(
+                child: const VideoStreamWidget(),
+              ),
             ),
-          ),
-          Positioned(
-            top: 20, right: 20,
-            child: 
-            BatteryInd(batteryVoltageStateProvider: batteryVoltageProvider),
-          ),
-          Positioned(
-            bottom: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-              AttitudeInd(pitchProvider: pitchProvider, rollProvider: rollProvider),
-              Azimuthind(),
-              ]
-            )
-          )
+            Positioned(
+              top: 20, right: 20,
+              child: 
+              BatteryInd(batteryVoltageStateProvider: batteryVoltageProvider),
+            ),
 
-          ]
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 320,
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: AttitudeInd(
+                        pitchProvider: pitchProvider, 
+                        rollProvider: rollProvider,
+                        radius: 200,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: Azimuthind(radius: 200),
+                    ),
+                  ],
+                ),
+              )
+            )
+          
+            ]
+          ),
         ),
         
       ],
@@ -74,22 +97,21 @@ class VideoStreamWidgetState extends ConsumerState<VideoStreamWidget> {
   @override
   Widget build(BuildContext context) {
     final String videoSourceAddr = ref.watch(ipProvider.notifier).state;
-    final String streamUrl = 'http://${videoSourceAddr}:8080/stream?topic=/image_raw&type=mjpeg&quality=30&width=640&height=480';
-    return Column(
-      children: [
-        Text("addr: $videoSourceAddr"),
-        Mjpeg(
-          width: 1024,
-          height: 720,
+    final String streamUrl = 'http://${videoSourceAddr}:8080/stream?topic=/image_raw&type=mjpeg&quality=30&width=1280&height=720';
+    
+    return Expanded(
+      child: SizedBox(
+        width: double.infinity,
+        child: Mjpeg(
           stream: streamUrl,
           isLive: true,
           error: (contet, error, stack) {
             debugPrint("stack: $stack\n error: $error\nstack:$stack");
             return Center(child: Text("stack: $stack\n error: $error\nstack:$stack", softWrap: true, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 8),));
           },
-          fit: BoxFit.scaleDown,
+          fit: BoxFit.cover,
         ),
-      ],
+      ),
     );
     
   }
