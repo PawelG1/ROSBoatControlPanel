@@ -4,12 +4,12 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
 
-class AltitudeInd extends ConsumerWidget{
+class AttitudeInd extends ConsumerWidget{
   final StateProvider<double> pitchProvider;
   final StateProvider<double> rollProvider;
   final double radius;
 
-  const AltitudeInd({super.key, required this.pitchProvider, required this.rollProvider, this.radius = 200});
+  const AttitudeInd({super.key, required this.pitchProvider, required this.rollProvider, this.radius = 200});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,14 +18,14 @@ class AltitudeInd extends ConsumerWidget{
 
     return CustomPaint(
       size: Size(radius, radius),
-      painter: AlititudeIndPainter()
+      painter: AttitudeIndPainter()
       ..pitch = pitch
       ..roll = roll
     );
   }
 }
 
-class AlititudeIndPainter extends CustomPainter {
+class AttitudeIndPainter extends CustomPainter {
 
   double _roll = 0;
   double _pitch = 0;

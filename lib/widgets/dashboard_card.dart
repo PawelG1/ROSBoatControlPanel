@@ -12,7 +12,7 @@ class DashboardCard extends ConsumerWidget {
     super.key,
     required this.title,
     required this.child,
-    this.height = 400,
+    this.height,
     this.accentColor,
     this.flex = 1,
   });
@@ -79,7 +79,7 @@ class DashboardCard extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Expanded(
+              Flexible(
                 child: Center(
                   child: child,
                 ),
