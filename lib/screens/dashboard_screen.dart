@@ -4,7 +4,7 @@ import 'package:ros_visualizer/providers/controls_providers.dart';
 import 'package:ros_visualizer/providers/ros_params_providers.dart';
 import 'package:ros_visualizer/services/socketService.dart';
 import 'package:ros_visualizer/widgets/battery_ind.dart';
-import 'package:ros_visualizer/widgets/gauges/alititudeInd.dart';
+import 'package:ros_visualizer/widgets/gauges/attitudeInd.dart';
 import 'package:ros_visualizer/widgets/gauges/azimuthInd.dart';
 import 'package:ros_visualizer/widgets/gauges/speedGauge.dart';
 import 'package:ros_visualizer/widgets/menuSideBar.dart';
@@ -46,7 +46,7 @@ class Dashboard extends ConsumerWidget{
                       title: 'Attitude',
                       flex: altitudeFlex,
                       accentColor: Colors.blue[500],
-                      child: AltitudeInd(
+                      child: AttitudeInd(
                         pitchProvider: pitchProvider, 
                         rollProvider: rollProvider, 
                         radius: screenWidth * 0.12,
