@@ -24,9 +24,7 @@ class CameraScreen extends ConsumerWidget {
             height: double.infinity,
             title: "",
             child: SizedBox(
-              child: Expanded(
-                child: const VideoStreamWidget(),
-              ),
+              child: const VideoStreamWidget(),
             ),
           ),
           Positioned(
