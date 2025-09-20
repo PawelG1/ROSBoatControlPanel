@@ -21,7 +21,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/camera',
-      builder: (context, state) => const CameraScreen(),
+      builder: (context, state) => CameraScreen(),
     ),
     GoRoute(
       path: '/connection-settings',
