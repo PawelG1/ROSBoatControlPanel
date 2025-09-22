@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ros_visualizer/screens/camera_screen.dart';
+import 'package:ros_visualizer/screens/charts_screen.dart';
 import 'package:ros_visualizer/screens/connection_screen.dart';
 import 'package:ros_visualizer/screens/dashboard_screen.dart';
 
@@ -26,6 +27,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/connection-settings',
       builder: (context, state) => const ConnectionScreen(),
+    ),
+    GoRoute(
+      path: '/charts',
+      builder: (context, state) => const ChartsScreen(),
     ),
     
   ],

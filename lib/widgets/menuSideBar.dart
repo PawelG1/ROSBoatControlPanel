@@ -37,7 +37,9 @@ class Menusidebar extends ConsumerWidget {
 
                 CustomButton(
                   text: "Charts",
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go('/charts');
+                  },
                 ),
 
                 
